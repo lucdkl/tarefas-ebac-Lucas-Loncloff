@@ -8,6 +8,7 @@ public class Aviao {
 
     private int velocidade;
 
+
     public String getModelo() {
         return modelo;
     }
