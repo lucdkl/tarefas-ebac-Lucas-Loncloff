@@ -13,16 +13,20 @@ public class Cliente {
 
     public Cliente(String nome, String cpf, String tel, String end, String num, String cidade, String estado){
         this.nome = nome;
-        this.cpf = Long.valueOf(cpf.trim());
+        try {
+            this.cpf = Long.valueOf(cpf.trim());
+        }catch (NumberFormatException e){
+            this.cpf = null;
+        }
         try {
             this.tel = Long.valueOf(tel.trim());
-        }catch (NullPointerException e){
+        }catch (NumberFormatException e){
             this.tel = null;
         }
         this.end = end;
         try {
             this.numero = Integer.valueOf(num.trim());
-        }catch (NullPointerException e){
+        }catch (NumberFormatException e){
             this.numero = null;
         }
         this.cidade = cidade;

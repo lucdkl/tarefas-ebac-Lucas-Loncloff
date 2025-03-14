@@ -4,6 +4,7 @@ import br.com.vkl.dao.ClienteMapDAO;
 import br.com.vkl.dao.IClienteDAO;
 import br.com.vkl.domain.Cliente;
 import br.com.vkl.domain.Validador;
+import br.com.vkl.swing.TelaPrincipal;
 
 import javax.swing.*;
 
@@ -13,7 +14,7 @@ public class App {
 
     public static void main (String[] args){
        iClienteDAO = new ClienteMapDAO();
-       inicio();
+
     }
 
     private static void inicio() {
