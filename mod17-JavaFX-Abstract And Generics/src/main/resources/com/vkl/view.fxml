@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.vkl.Controller">
+   <children>
+      <TabPane fx:id="tabPane" layoutX="-1.0" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
+        <tabs>
+            <Tab text="Garagem">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" layoutY="14.0" prefHeight="62.0" prefWidth="600.0" text="Garagem" textAlignment="CENTER">
+                           <font>
+                              <Font size="42.0" />
+                           </font>
+                        </Label>
+                        <Button layoutX="251.0" layoutY="325.0" mnemonicParsing="false" onAction="#vender" prefHeight="31.0" prefWidth="97.0" style="-fx-background-color: salmon;" text="VENDER" />
+                        <ListView fx:id="garagemList" layoutX="1.0" layoutY="92.0" prefHeight="200.0" prefWidth="600.0" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Concessionária Renault">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" layoutY="69.0" prefHeight="62.0" prefWidth="600.0" text="Concessionária Da Renault" textAlignment="CENTER">
+                           <font>
+                              <Font size="42.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="174.0" layoutY="164.0" prefHeight="41.0" prefWidth="99.0" text="Modelo:" textAlignment="CENTER">
+                           <font>
+                              <Font name="Leelawadee UI Semilight" size="24.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="renaultCBox" layoutX="273.0" layoutY="172.0" prefHeight="25.0" prefWidth="177.0" />
+                        <Button layoutX="251.0" layoutY="229.0" mnemonicParsing="false" onAction="#comprar" prefHeight="31.0" prefWidth="97.0" style="-fx-background-color: lightGreen;" text="Comprar" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+          <Tab text="Concessionária Fiat">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label alignment="CENTER" layoutY="69.0" prefHeight="62.0" prefWidth="600.0" text="Concessionária Da Fiat" textAlignment="CENTER">
+                           <font>
+                              <Font size="42.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="174.0" layoutY="164.0" prefHeight="41.0" prefWidth="99.0" text="Modelo:" textAlignment="CENTER">
+                           <font>
+                              <Font name="Leelawadee UI Semilight" size="24.0" />
+                           </font>
+                        </Label>
+                        <ChoiceBox fx:id="fiatCBox" layoutX="273.0" layoutY="172.0" prefHeight="25.0" prefWidth="177.0" />
+                        <Button layoutX="251.0" layoutY="229.0" mnemonicParsing="false" onAction="#comprar" prefHeight="31.0" prefWidth="97.0" style="-fx-background-color: lightGreen;" text="Comprar" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+        </tabs>
+      </TabPane>
+   </children>
+</AnchorPane>
