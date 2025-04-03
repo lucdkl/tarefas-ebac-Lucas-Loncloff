@@ -9,7 +9,7 @@ public class Main {
         n.add(1);
         n.add(2);
 
-        int numeroDegrausAdicionais = 10;
+        int numeroDegrausAdicionais = 1000;
         for (int i = 0; i < numeroDegrausAdicionais; i++){
             int n1 = n.get(n.size()-1);
             int n2 = n.get(n.size()-2);
