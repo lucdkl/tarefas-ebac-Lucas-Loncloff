@@ -20,11 +20,11 @@ public abstract class GenericService<T extends Persistente> implements IGenericS
 
     @Override
     public void excluir(Long valor) {
-
+        genericDao.excluir(valor);
     }
 
     @Override
     public void alterar(Persistente entity) throws TipoChaveNaoEncontradaException {
-
+        genericDao.alterar(entity);
     }
 }
