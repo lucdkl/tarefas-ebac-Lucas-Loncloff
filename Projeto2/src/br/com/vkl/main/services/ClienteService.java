@@ -2,6 +2,7 @@ package br.com.vkl.main.services;
 
 import br.com.vkl.main.dao.IClienteDAO;
 import br.com.vkl.main.domain.Cliente;
+import br.com.vkl.main.domain.Persistente;
 import reflections.anotacao.cadastro.exception.TipoChaveNaoEncontradaException;
 
 public class ClienteService implements IClienteService {
@@ -15,23 +16,22 @@ public class ClienteService implements IClienteService {
     }
 
     @Override
-    public Boolean salvar(Cliente cliente) throws TipoChaveNaoEncontradaException {
-        return clienteDAO.cadastrar(cliente);
+    public Boolean salvar(Persistente entity) throws TipoChaveNaoEncontradaException {
+        return true;
     }
 
     @Override
-    public Cliente buscarPorCpf(Long cpf) {
-        return clienteDAO.consultar(cpf);
+    public Persistente buscarPorCpf(Long valor) {
+        return clienteDAO.consultar(valor);
     }
 
     @Override
-    public void excluir(Long cpf) {
-        clienteDAO.excluir(cpf);
+    public void excluir(Long valor) {
+
     }
 
     @Override
-    public void alterar(Cliente cliente) throws TipoChaveNaoEncontradaException {
-        clienteDAO.alterar(cliente);
-    }
+    public void alterar(Persistente entity) throws TipoChaveNaoEncontradaException {
 
+    }
 }

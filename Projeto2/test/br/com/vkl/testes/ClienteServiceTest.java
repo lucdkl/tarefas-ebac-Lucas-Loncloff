@@ -41,7 +41,7 @@ public class ClienteServiceTest {
 
     @Test
     public void pesquisarClienteService(){
-        Cliente clienteConsultado = clienteService.buscarPorCpf(cliente.getCpf());
+        Cliente clienteConsultado = (Cliente) clienteService.buscarPorCpf(cliente.getCpf());
         Assert.assertNotNull(clienteConsultado);
     }
 
