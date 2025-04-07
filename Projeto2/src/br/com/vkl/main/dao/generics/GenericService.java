@@ -6,14 +6,16 @@ import reflections.anotacao.cadastro.exception.TipoChaveNaoEncontradaException;
 
 public abstract class GenericService<T extends Persistente> implements IGenericService {
 
+    public GenericDAO genericDao;
+
     @Override
     public Boolean salvar(Persistente entity) throws TipoChaveNaoEncontradaException {
-        return null;
+        return genericDao.cadastrar(entity);
     }
 
     @Override
     public Persistente buscarPorCpf(Long valor) {
-        return null;
+        return genericDao.consultar(valor);
     }
 
     @Override

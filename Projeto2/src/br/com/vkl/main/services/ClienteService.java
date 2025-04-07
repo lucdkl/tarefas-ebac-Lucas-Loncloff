@@ -15,9 +15,10 @@ public class ClienteService implements IClienteService {
         this.clienteDAO = clienteDAO;
     }
 
+
     @Override
     public Boolean salvar(Persistente entity) throws TipoChaveNaoEncontradaException {
-        return true;
+        return clienteDAO.cadastrar((Cliente) entity);
     }
 
     @Override
