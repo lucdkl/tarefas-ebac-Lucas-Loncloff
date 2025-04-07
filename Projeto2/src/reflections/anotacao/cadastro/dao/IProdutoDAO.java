@@ -11,5 +11,4 @@ import reflections.anotacao.cadastro.domain.Produto;
  * Interface que representa os dados de Produto
  */
 public interface IProdutoDAO extends IGenericDAO<Produto> {
-
 }
