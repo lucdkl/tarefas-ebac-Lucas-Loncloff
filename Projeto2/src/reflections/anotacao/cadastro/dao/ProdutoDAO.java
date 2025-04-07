@@ -1,8 +1,10 @@
 package reflections.anotacao.cadastro.dao;
 
-import br.com.rpires.reflections.anotacao.cadastro.SingletonMap;
-import br.com.rpires.reflections.anotacao.cadastro.dao.generic.GenericDAO;
-import br.com.rpires.reflections.anotacao.cadastro.domain.Produto;
+
+
+import br.com.vkl.main.dao.generics.GenericDAO;
+import br.com.vkl.main.dao.generics.SingletonMap;
+import reflections.anotacao.cadastro.domain.Produto;
 
 import java.util.HashMap;
 import java.util.Map;

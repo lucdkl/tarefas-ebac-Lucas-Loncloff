@@ -8,6 +8,7 @@ import br.com.vkl.main.services.IClienteService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import reflections.anotacao.cadastro.exception.TipoChaveNaoEncontradaException;
 
 public class ClienteServiceTest {
 
@@ -33,7 +34,7 @@ public class ClienteServiceTest {
     }
 
     @Test
-    public void salvarClienteService(){
+    public void salvarClienteService() throws TipoChaveNaoEncontradaException {
         Boolean bool = clienteService.salvar(cliente);
         Assert.assertTrue(bool);
     }
@@ -50,7 +51,7 @@ public class ClienteServiceTest {
     }
 
     @Test
-    public void alterarClienteService(){
+    public void alterarClienteService() throws TipoChaveNaoEncontradaException {
         cliente.setNome("Teste da silva");
         clienteService.alterar(cliente);
         Assert.assertEquals("Teste da silva", cliente.getNome());

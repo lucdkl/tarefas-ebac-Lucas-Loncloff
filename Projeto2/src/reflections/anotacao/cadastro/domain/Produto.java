@@ -1,7 +1,8 @@
 package reflections.anotacao.cadastro.domain;
 
-import br.com.rpires.reflections.anotacao.cadastro.anotacao.TipoChave;
+
 import br.com.vkl.main.domain.Persistente;
+import reflections.anotacao.cadastro.anotacao.TipoChave;
 
 /**
  * @author rodrigo.pires

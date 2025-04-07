@@ -1,9 +1,10 @@
 package reflections.anotacao.cadastro.fabrica;
 
 
-import br.com.rpires.reflections.anotacao.cadastro.domain.Persistente;
-import br.com.rpires.reflections.anotacao.cadastro.domain.Produto;
-import br.com.rpires.reflections.anotacao.cadastro.exception.DadosInvalidosException;
+
+import br.com.vkl.main.domain.Persistente;
+import reflections.anotacao.cadastro.domain.Produto;
+import reflections.anotacao.cadastro.exception.DadosInvalidosException;
 
 /**
  * @author rodrigo.pires

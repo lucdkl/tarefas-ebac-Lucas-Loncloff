@@ -1,7 +1,8 @@
 package reflections.anotacao.cadastro.dao;
 
-import br.com.rpires.reflections.anotacao.cadastro.dao.generic.IGenericDAO;
-import br.com.rpires.reflections.anotacao.cadastro.domain.Cliente;
+
+import br.com.vkl.main.dao.generics.IGenericDAO;
+import br.com.vkl.main.domain.Cliente;
 
 /**
  * @author rodrigo.pires

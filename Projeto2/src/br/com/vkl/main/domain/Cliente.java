@@ -10,6 +10,18 @@ public class Cliente implements Persistente{
     private String cidade;
     private String estado;
 
+
+    public Cliente(){}
+
+    public Cliente(String nome, String cpf, String tel, String end, String num, String cidade, String estado) {
+        this.nome = nome;
+        this.Cpf = Long.valueOf(cpf.trim());
+        this.tel = Long.valueOf(tel.trim());
+        this.end = end;
+        this.numero = Integer.valueOf(num.trim());
+        this.cidade = cidade;
+        this.estado = estado;
+    }
     public String getNome() {
         return nome;
     }

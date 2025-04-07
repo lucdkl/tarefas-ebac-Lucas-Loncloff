@@ -1,25 +1,18 @@
 package br.com.vkl.main.dao;
 
+import br.com.vkl.main.dao.generics.GenericDAO;
 import br.com.vkl.main.domain.Cliente;
 
-public class ClienteDAO implements IClienteDAO {
+
+public class ClienteDAO extends GenericDAO<Cliente> implements IClienteDAO {
     @Override
-    public Boolean salvar(Cliente cliente) {
-        return true;
+    public Class<Cliente> getTipoClasse() {
+        return Cliente.class;
     }
 
     @Override
-    public Cliente buscarPorCpf(Long cpf) {
-        return null;
-    }
-
-    @Override
-    public void excluir(Long cpf) {
-
-    }
-
-    @Override
-    public void alterar(Cliente cliente) {
+    public void atualiarDados(Cliente entity, Cliente entityCadastrado) {
 
     }
 }
+

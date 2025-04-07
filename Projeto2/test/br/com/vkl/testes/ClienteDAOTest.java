@@ -6,6 +6,7 @@ import br.com.vkl.main.domain.Cliente;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import reflections.anotacao.cadastro.exception.TipoChaveNaoEncontradaException;
 
 public class ClienteDAOTest {
 
@@ -31,14 +32,14 @@ public class ClienteDAOTest {
     }
 
     @Test
-    public void salvarClienteDao(){
-        Boolean bool = clienteDAO.salvar(cliente);
+    public void salvarClienteDao() throws TipoChaveNaoEncontradaException {
+        Boolean bool = clienteDAO.cadastrar(cliente);
         Assert.assertTrue(bool);
     }
 
     @Test
     public void pesquisarClienteDao(){
-        Cliente clienteConsultado = clienteDAO.buscarPorCpf(cliente.getCpf());
+        Cliente clienteConsultado = clienteDAO.consultar(cliente.getCpf());
         Assert.assertNotNull(clienteConsultado);
     }
 
@@ -48,7 +49,7 @@ public class ClienteDAOTest {
     }
 
     @Test
-    public void alterarClienteDao(){
+    public void alterarClienteDao() throws TipoChaveNaoEncontradaException {
         cliente.setNome("Teste da silva");
         clienteDAO.alterar(cliente);
         Assert.assertEquals("Teste da silva", cliente.getNome());
