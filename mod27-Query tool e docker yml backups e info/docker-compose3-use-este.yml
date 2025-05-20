@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  db:
+    container_name: ebac_postgresql
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: lucas_admin
+      POSTGRES_PASSWORD: 980580025
+      POSTGRES_DB: ebac_db 
+    ports:
+      - "15432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - postgres-ebac-network
+
+  pgadmin:
+    container_name: ebac_pgAdmin
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: lucvkl@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 980580025
+    ports:
+      - "16543:80"
+    depends_on:
+      - db
+    networks:
+      - postgres-ebac-network
+
+networks:
+  postgres-ebac-network:
+    driver: bridge
+
+volumes:
+  postgres_data: 
