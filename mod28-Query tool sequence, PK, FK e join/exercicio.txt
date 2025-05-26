@@ -1,0 +1,65 @@
+create table tb_cliente (
+	id bigint not null,
+	nome varchar(50) not null,
+	id_produto bigint,
+	constraint pk_id_cliente primary key(id),
+	constraint fk_id_produto_cliente foreign key(id_produto) references tb_produto(id)
+)
+
+create table tb_produto (
+	id bigint not null,
+	nome varchar(50) not null,
+	quantidade integer not null,
+	constraint pk_id_produto primary key (id)
+)
+
+create table tb_venda (
+	id bigint not null,
+	id_cliente bigint,
+	dia date not null,
+	constraint pk_id_venda primary key (id),
+	constraint fk_id_cliente_venda foreign key(id_cliente) references tb_cliente(id)
+)
+
+create sequence sq_produto
+start 1
+increment 1
+owned by tb_produto.id;
+
+create sequence sq_cliente
+start 1
+increment 1
+owned by tb_cliente.id;
+
+create sequence sq_venda
+start 1
+increment 1
+owned by tb_venda.id;
+
+insert into tb_produto(id, nome, quantidade) 
+values (nextval('sq_produto'), 'Banana', 1);
+
+insert into tb_produto(id, nome, quantidade) 
+values (nextval('sq_produto'), 'Cacho de uva', 75);
+
+insert into tb_cliente(id, nome, id_produto)
+values (nextval('sq_cliente'), 'Rodolfo', 1);
+
+insert into tb_cliente(id, nome, id_produto)
+values (nextval('sq_cliente'), 'Astolfo', 2);
+
+insert into tb_venda(id, id_cliente, dia)
+values (nextval('sq_venda'), 1, CURRENT_DATE);
+
+insert into tb_venda(id, id_cliente, dia)
+values (nextval('sq_venda'), 2, CURRENT_DATE);
+
+select * from tb_produto;
+
+select * from tb_cliente;
+
+select * from tb_venda;
+
+select v.*, c.*, p.*
+from tb_venda v, tb_cliente c, tb_produto p
+where v.id_cliente = c.id and c.id_produto = p.id;

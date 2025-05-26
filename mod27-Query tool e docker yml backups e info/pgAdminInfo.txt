@@ -1,0 +1,25 @@
+6. Acesse o pgAdmin:
+
+    URL: http://localhost:16543
+
+    Login: lucvkl@gmail.com / 980580025
+
+7. Configure a conexão no pgAdmin:
+
+    Clique em "Add New Server"
+
+    Na aba "General":
+
+        Name: Ebac PostgreSQL
+
+    Na aba "Connection":
+
+        Host: ebac_postgresql (nome do container)
+
+        Port: 5432
+
+        Maintenance database: ebac_db
+
+        Username: lucas_admin
+
+        Password: 980580025
