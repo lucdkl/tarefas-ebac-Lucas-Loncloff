@@ -63,3 +63,8 @@ select * from tb_venda;
 select v.*, c.*, p.*
 from tb_venda v, tb_cliente c, tb_produto p
 where v.id_cliente = c.id and c.id_produto = p.id;
+
+SELECT v.id_cliente, v.dia, c.nome as nome_cliente, p.id, p.nome as nome_produto, p.quantidade
+FROM tb_venda v
+INNER JOIN tb_cliente c ON v.id_cliente = c.id
+INNER JOIN tb_produto p ON c.id_produto = p.id;
