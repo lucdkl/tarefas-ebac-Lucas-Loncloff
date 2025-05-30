@@ -1,7 +1,3 @@
 Manifest-Version: 1.0
 Main-Class: com.vkl.App
-Class-Path: javafx-graphics-17.0.6-win.jar javafx-graphics-17.0.6.jar ja
- vafx-base-17.0.6.jar javafx-base-17.0.6-win.jar formsfx-core-11.6.0.jar
-  javafx-controls-17.0.6-win.jar javafx-fxml-17.0.6.jar javafx-controls-
- 17.0.6.jar javafx-fxml-17.0.6-win.jar
 
