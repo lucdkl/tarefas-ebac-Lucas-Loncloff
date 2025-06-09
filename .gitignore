@@ -1,3 +1,5 @@
 /projeto1Swing/target/
 /Projeto1CadastroSwing/nbproject/private/
 /Projeto1CadastroSwing/build/
+/main/resources/config.properties
+**/config.properties
