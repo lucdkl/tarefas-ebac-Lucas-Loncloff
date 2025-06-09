@@ -15,5 +15,4 @@ import org.junit.runners.Suite;
 	ProdutoServiceTest.class, ProdutoDAOTest.class,
 	VendaDAOTest.class})
 public class AllTests {
-
 }

@@ -18,6 +18,7 @@ import java.time.Instant;
 import java.util.Collection;
 
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -61,7 +62,7 @@ public class VendaDAOTest {
 	
 	@Before
 	public void init() throws TipoChaveNaoEncontradaException, MaisDeUmRegistroException, TableException, DAOException {
-		this.cliente = cadastrarCliente();
+		this.cliente = verificarCliente();
 		this.produto = cadastrarProduto("A1", BigDecimal.TEN);
 	}
 	
@@ -291,6 +292,7 @@ public class VendaDAOTest {
 		produto.setCodigo(codigo);
 		produto.setDescricao("Produto 1");
 		produto.setNome("Produto 1");
+		produto.setMarca("Marca 1");
 		produto.setValor(valor);
 		produtoDao.cadastrar(produto);
 		return produto;
@@ -298,15 +300,25 @@ public class VendaDAOTest {
 
 	private Cliente cadastrarCliente() throws TipoChaveNaoEncontradaException, DAOException {
 		Cliente cliente = new Cliente();
+		cliente.setId(1l);
 		cliente.setCpf(12312312312L);
 		cliente.setNome("Rodrigo");
 		cliente.setCidade("São Paulo");
 		cliente.setEnd("End");
 		cliente.setEstado("SP");
 		cliente.setNumero(10);
+		cliente.setGenero(Boolean.TRUE);
 		cliente.setTel(1199999999L);
-		clienteDao.cadastrar(cliente);
 		return cliente;
+	}
+
+	private Cliente verificarCliente() throws TipoChaveNaoEncontradaException, DAOException, MaisDeUmRegistroException, TableException {
+		Cliente clienteConsultado = clienteDao.consultar(12312312312L);
+		if (clienteConsultado == null){
+			clienteConsultado = cadastrarCliente();
+			clienteDao.cadastrar(clienteConsultado);
+		}
+		return clienteConsultado;
 	}
 	
 	private Venda criarVenda(String codigo) {
@@ -337,7 +349,7 @@ public class VendaDAOTest {
 			stm.executeUpdate();
 		    
 		} catch (SQLException e) {
-			throw new DAOException("ERRO EXLUINDO OBJETO ", e);
+			throw new DAOException("ERRO EXCLUINDO OBJETO ", e);
 		} finally {
 			closeConnection(connection, stm, rs);
 		}

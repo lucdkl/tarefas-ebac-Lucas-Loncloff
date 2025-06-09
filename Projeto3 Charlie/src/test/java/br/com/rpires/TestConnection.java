@@ -13,5 +13,6 @@ public class TestConnection {
     @Test
     public void testeConexao() throws SQLException {
         Connection connection = getConnection();
+        connection.close();
     }
 }
