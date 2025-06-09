@@ -2,3 +2,6 @@
 /shelf/
 /workspace.xml
 /config.properties
+**/config.properties
+/config.properties
+/main/resources/config.properties
