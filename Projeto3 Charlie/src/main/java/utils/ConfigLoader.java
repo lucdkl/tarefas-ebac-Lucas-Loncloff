@@ -1,11 +1,11 @@
 package utils;
 
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigLoader {
+
     private static final Properties props = new Properties();
 
     static {
@@ -14,8 +14,9 @@ public class ConfigLoader {
             if (input == null) {
                 throw new RuntimeException("Arquivo config.properties não encontrado no classpath!");
             }
+            props.load(input);
         } catch (IOException e) {
-            throw new RuntimeException("Arquivo config.properties não encontrado na raiz!", e);
+            throw new RuntimeException("Erro ao carregar config.properties", e);
         }
     }
 

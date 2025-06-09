@@ -1,0 +1,3 @@
+Modifique o arquivo "config1.properties"
+1.Renomeie-o para "config.properties"
+2.Mude as credenciais dele para as informações do seu servidor
