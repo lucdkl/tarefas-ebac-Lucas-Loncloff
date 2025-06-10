@@ -3,15 +3,13 @@
  */
 package br.com.rpires;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import br.com.rpires.dao.EstoqueDao;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import br.com.rpires.dao.IProdutoDAO;
@@ -21,6 +19,8 @@ import br.com.rpires.exceptions.DAOException;
 import br.com.rpires.exceptions.MaisDeUmRegistroException;
 import br.com.rpires.exceptions.TableException;
 import br.com.rpires.exceptions.TipoChaveNaoEncontradaException;
+
+import static org.junit.Assert.*;
 
 /**
  * @author rodrigo.pires
@@ -33,8 +33,8 @@ public class ProdutoDAOTest {
 	public ProdutoDAOTest() {
 		produtoDao = new ProdutoDAO();
 	}
-	
-	@After
+
+//	@After
 	public void end() throws DAOException {
 		Collection<Produto> list = produtoDao.buscarTodos();
 		list.forEach(prod -> {
@@ -46,6 +46,8 @@ public class ProdutoDAOTest {
 			}
 		});
 	}
+
+
 
 	private Produto criarProduto(String codigo) throws TipoChaveNaoEncontradaException, DAOException {
 		Produto produto = new Produto();
@@ -117,5 +119,13 @@ public class ProdutoDAOTest {
 		assertTrue(list != null);
 		assertTrue(list.size() == 0);
 		
+	}
+
+	@Test
+	public void procurarEstoque() throws DAOException, TipoChaveNaoEncontradaException {
+		Produto produto = criarProduto("A7");
+		Integer qtd = 10;
+		produtoDao.setEstoque(produto, qtd);
+		assertEquals(produtoDao.consultarEstoque(produto), qtd);
 	}
 }

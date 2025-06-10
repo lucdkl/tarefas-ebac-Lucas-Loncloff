@@ -45,4 +45,13 @@ public class ProdutoDaoMock implements IProdutoDAO {
 		return null;
 	}
 
+	@Override
+	public void setEstoque(Produto produto, Integer qtd) {
+
+	}
+
+	@Override
+	public Integer consultarEstoque(Produto produto) {
+		return 0;
+	}
 }

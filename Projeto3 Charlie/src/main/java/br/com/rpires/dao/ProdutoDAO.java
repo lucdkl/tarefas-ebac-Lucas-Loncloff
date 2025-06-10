@@ -3,18 +3,27 @@
  */
 package br.com.rpires.dao;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import anotacao.ColunaTabela;
 import br.com.rpires.dao.generic.GenericDAO;
 import br.com.rpires.domain.Produto;
+import br.com.rpires.exceptions.*;
 
 /**
  * @author rodrigo.pires
  *
  */
 public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoDAO {
-	
+
+	private EstoqueDao estoqueDao = new EstoqueDao();
+
 	public ProdutoDAO() {
 		super();
 	}
@@ -89,5 +98,23 @@ public class ProdutoDAO extends GenericDAO<Produto, String> implements IProdutoD
 		stmExclusao.setString(1, valor);
 	}
 
+	@Override
+	public void setEstoque(Produto produto, Integer qtd) {
+		try {
+			estoqueDao.setEstoque(produto.getId(), qtd);
+		}catch (DAOException | SQLException e){
+			e.printStackTrace();
+		}
+	}
 
+	@Override
+	public Integer consultarEstoque(Produto produto) {
+        Integer estoque = null;
+        try {
+            estoque = estoqueDao.consultarEstoque(produto);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return estoque;
+	}
 }

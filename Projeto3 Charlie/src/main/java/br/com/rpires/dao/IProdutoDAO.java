@@ -12,4 +12,7 @@ import br.com.rpires.domain.Produto;
  */
 public interface IProdutoDAO extends IGenericDAO<Produto, String>{
 
+    void setEstoque(Produto produto, Integer qtd);
+
+    Integer consultarEstoque(Produto produto);
 }
