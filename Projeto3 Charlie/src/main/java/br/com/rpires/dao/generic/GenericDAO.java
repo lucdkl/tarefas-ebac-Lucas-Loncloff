@@ -236,6 +236,8 @@ public abstract class GenericDAO<T extends Persistente, E extends Serializable> 
 			return rs.getBigDecimal(fieldName);
 		} else if (typeField.equals(String.class)) {
 			return rs.getString(fieldName);
+		} else if (typeField.equals(Boolean.class)) {
+			return rs.getBoolean(fieldName);
 		} else {
 			throw new TipoElementoNaoConhecidoException("TIPO DE CLASSE NÃO CONHECIDO: " + typeField);
 		}
