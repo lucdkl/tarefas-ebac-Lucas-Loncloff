@@ -10,6 +10,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import static br.com.rpires.dao.generic.jdbc.ConnectionFactory.getConnection;
 
@@ -50,6 +53,46 @@ public class EstoqueDao {
             closeConnection(connection, stm, rs);
         }
         return estoque;
+    }
+
+    public void excluir(Long valor) throws DAOException, SQLException {
+        Connection connection = getConnection();
+        PreparedStatement stm = null;
+        try {
+            stm = connection.prepareStatement(getQueryExclusao());
+            setParametrosQueryExclusao(stm, valor);
+            int rowsAffected = stm.executeUpdate();
+        } catch (SQLException e) {
+            throw new DAOException("ERRO EXCLUINDO OBJETO ", e);
+        } finally {
+            closeConnection(connection, stm, null);
+        }
+
+    }
+
+    public Collection<Estoque> buscarTodos() throws DAOException {
+        List<Estoque> list = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            connection = getConnection();
+            stm = connection.prepareStatement("SELECT * FROM TB_PRODUTO_ESTOQUE");
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                Estoque estoque = new Estoque();
+                estoque.setId(rs.getLong("id"));
+                estoque.setIdProduto(rs.getLong("id_produto_fk"));
+                estoque.setQuantidade(rs.getInt("quantidade"));
+                list.add(estoque);
+            }
+
+        } catch (SQLException | IllegalArgumentException | SecurityException e) {
+            throw new DAOException("ERRO LISTANDO OBJETOS ", e);
+        } finally {
+            closeConnection(connection, stm, rs);
+        }
+        return list;
     }
 
 
@@ -120,5 +163,13 @@ public class EstoqueDao {
 
     private void setParametrosQuerySelect(PreparedStatement stmSelect, Long valor) throws SQLException {
         stmSelect.setLong(1, valor);
+    }
+
+    protected String getQueryExclusao() {
+        return "DELETE FROM TB_PRODUTO_ESTOQUE WHERE ID = ?";
+    }
+
+    protected void setParametrosQueryExclusao(PreparedStatement stmExclusao, Long valor) throws SQLException {
+        stmExclusao.setLong(1, valor);
     }
 }

@@ -4,12 +4,13 @@
 package br.com.rpires;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Collection;
 
 import br.com.rpires.dao.EstoqueDao;
+import br.com.rpires.domain.Estoque;
 import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import br.com.rpires.dao.IProdutoDAO;
@@ -30,14 +31,16 @@ public class ProdutoDAOTest {
 	
 	private IProdutoDAO produtoDao;
 
+	private EstoqueDao estoqueDao = new EstoqueDao();
+
 	public ProdutoDAOTest() {
 		produtoDao = new ProdutoDAO();
 	}
 
-//	@After
+	@After
 	public void end() throws DAOException {
-		Collection<Produto> list = produtoDao.buscarTodos();
-		list.forEach(prod -> {
+		Collection<Produto> list2 = produtoDao.buscarTodos();
+		list2.forEach(prod -> {
 			try {
 				produtoDao.excluir(prod.getCodigo());
 			} catch (DAOException e) {
@@ -47,9 +50,33 @@ public class ProdutoDAOTest {
 		});
 	}
 
+	@Test
+	public void testeEstoqueDeleteAll() throws DAOException {
+		Collection<Estoque> list = estoqueDao.buscarTodos();
+		list.forEach(estoq -> {
+			try {
+				estoqueDao.excluir(estoq.getId());
+			} catch (DAOException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
 
 
-	private Produto criarProduto(String codigo) throws TipoChaveNaoEncontradaException, DAOException {
+	private Produto criarProdutoComEstoque(String codigo) throws TipoChaveNaoEncontradaException, DAOException {
+		Produto produto = new Produto();
+		produto.setCodigo(codigo);
+		produto.setDescricao("Produto 1");
+		produto.setNome("Produto 1");
+		produto.setMarca("Marca 1");
+		produto.setValor(BigDecimal.TEN);
+		produtoDao.cadastrar(produto);
+		produtoDao.setEstoque(produto, 10);
+		return produto;
+	}
+
+	private Produto criarProdutoSemEstoque(String codigo) throws TipoChaveNaoEncontradaException, DAOException {
 		Produto produto = new Produto();
 		produto.setCodigo(codigo);
 		produto.setDescricao("Produto 1");
@@ -59,6 +86,7 @@ public class ProdutoDAOTest {
 		produtoDao.cadastrar(produto);
 		return produto;
 	}
+
 	
 	private void excluir(String valor) throws DAOException {
 		this.produtoDao.excluir(valor);
@@ -66,7 +94,7 @@ public class ProdutoDAOTest {
 	
 	@Test
 	public void pesquisar() throws MaisDeUmRegistroException, TableException, DAOException, TipoChaveNaoEncontradaException {
-		Produto produto = criarProduto("A1");
+		Produto produto = criarProdutoComEstoque("A1");
 		Assert.assertNotNull(produto);
 		Produto produtoDB = this.produtoDao.consultar(produto.getCodigo());
 		Assert.assertNotNull(produtoDB);
@@ -75,14 +103,14 @@ public class ProdutoDAOTest {
 	
 	@Test
 	public void salvar() throws TipoChaveNaoEncontradaException, DAOException {
-		Produto produto = criarProduto("A2");
+		Produto produto = criarProdutoComEstoque("A2");
 		Assert.assertNotNull(produto);
 		excluir(produto.getCodigo());
 	}
 	
 	@Test
 	public void excluir() throws DAOException, TipoChaveNaoEncontradaException, MaisDeUmRegistroException, TableException {
-		Produto produto = criarProduto("A3");
+		Produto produto = criarProdutoComEstoque("A3");
 		Assert.assertNotNull(produto);
 		excluir(produto.getCodigo());
 		Produto produtoBD = this.produtoDao.consultar(produto.getCodigo());
@@ -91,7 +119,7 @@ public class ProdutoDAOTest {
 	
 	@Test
 	public void alterarCliente() throws TipoChaveNaoEncontradaException, DAOException, MaisDeUmRegistroException, TableException {
-		Produto produto = criarProduto("A4");
+		Produto produto = criarProdutoComEstoque("A4");
 		produto.setNome("Rodrigo Pires");
 		produtoDao.alterar(produto);
 		Produto produtoBD = this.produtoDao.consultar(produto.getCodigo());
@@ -105,8 +133,8 @@ public class ProdutoDAOTest {
 	
 	@Test
 	public void buscarTodos() throws DAOException, TipoChaveNaoEncontradaException {
-		criarProduto("A5");
-		criarProduto("A6");
+		criarProdutoComEstoque("A5");
+		criarProdutoComEstoque("A6");
 		Collection<Produto> list = produtoDao.buscarTodos();
 		assertTrue(list != null);
 		assertTrue(list.size() == 2);
@@ -122,8 +150,8 @@ public class ProdutoDAOTest {
 	}
 
 	@Test
-	public void procurarEstoque() throws DAOException, TipoChaveNaoEncontradaException {
-		Produto produto = criarProduto("A7");
+	public void procurarEsetNoEstoque() throws DAOException, TipoChaveNaoEncontradaException {
+		Produto produto = criarProdutoSemEstoque("A7");
 		Integer qtd = 10;
 		produtoDao.setEstoque(produto, qtd);
 		assertEquals(produtoDao.consultarEstoque(produto), qtd);

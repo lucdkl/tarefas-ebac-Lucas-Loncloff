@@ -10,7 +10,7 @@ public class Estoque implements Persistente {
     @ColunaTabela(dbName = "id", setJavaName = "setId")
     private Long id;
 
-    private Produto produto;
+    private Long idProduto;
 
     @ColunaTabela(dbName = "quantidade", setJavaName = "setQuantidade")
     private Integer quantidade;
@@ -33,11 +33,11 @@ public class Estoque implements Persistente {
         this.id = id;
     }
 
-    public Produto getProduto() {
-        return produto;
+    public Long getIdProduto() {
+        return idProduto;
     }
 
-    public void setProduto(Produto produto) {
-        this.produto = produto;
+    public void setIdProduto(Long idProduto) {
+        this.idProduto = idProduto;
     }
 }
