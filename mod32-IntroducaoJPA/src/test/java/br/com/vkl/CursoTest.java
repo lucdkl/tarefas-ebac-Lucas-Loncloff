@@ -43,6 +43,10 @@ public class CursoTest {
         Boolean existe = listCurso.stream().anyMatch(c -> c.getCodigo().equals("A1"));
 
         Assert.assertTrue(existe);
+
+        cursoDao.excluir(curso);
+
+        Assert.assertNull(cursoDao.consultar("A1"));
         
     }
 }
