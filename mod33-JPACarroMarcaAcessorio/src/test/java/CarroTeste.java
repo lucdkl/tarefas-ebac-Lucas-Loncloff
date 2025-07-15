@@ -25,7 +25,7 @@ public class CarroTeste {
         carro.setCodigo(codigo);
         carro.setNome("Twingo");
         carro.setMarca(pegarMarcaTesteBanco());
-        carro.
+        carro.setAcessorio(pegarAcessTesteBanco());
         return carro;
     }
 
@@ -43,11 +43,11 @@ public class CarroTeste {
         return marca;
     }
 
-    private Marca pegarAcessTesteBanco() {
-        if (marcaDao.consultar("TESTHOLD") == null){
-            marcaDao.cadastrar(criarMarcaTeste());
+    private Acessorio pegarAcessTesteBanco() {
+        if (acessorioDao.consultar("TESTHOLD") == null){
+            acessorioDao.cadastrar(criarAcessorioTeste());
         }
-        return marcaDao.consultar("TESTHOLD");
+        return acessorioDao.consultar("TESTHOLD");
     }
 
     public Acessorio criarAcessorioTeste(){

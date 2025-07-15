@@ -61,4 +61,12 @@ public class Carro {
     public void setMarca(Marca marca) {
         this.marca = marca;
     }
+
+    public Acessorio getAcessorio() {
+        return acessorio;
+    }
+
+    public void setAcessorio(Acessorio acessorio) {
+        this.acessorio = acessorio;
+    }
 }
