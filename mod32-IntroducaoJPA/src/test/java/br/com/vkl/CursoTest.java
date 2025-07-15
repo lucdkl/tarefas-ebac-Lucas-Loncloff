@@ -47,6 +47,6 @@ public class CursoTest {
         cursoDao.excluir(curso);
 
         Assert.assertNull(cursoDao.consultar("A1"));
-        
+
     }
 }
