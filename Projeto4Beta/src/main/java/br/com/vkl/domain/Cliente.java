@@ -16,7 +16,7 @@ public class Cliente implements Persistente {
     private Long id;
 
     @Column(name = "CPF", length = 10, nullable = false, unique = true)
-    private String cpf;
+    private Long cpf;
 
     @Column(name = "NOME", length = 50, nullable = false)
     private String nome;
@@ -44,11 +44,12 @@ public class Cliente implements Persistente {
         this.id = id;
     }
 
-    public String getCpf() {
+
+    public Long getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 

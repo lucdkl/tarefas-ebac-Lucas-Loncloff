@@ -42,7 +42,7 @@ public abstract class GenericService<T extends Persistente, E extends Serializab
 	}
 
 	@Override
-	public T consultar(Long valor) throws DAOException {
+	public T consultar(E valor) throws DAOException {
 		try {
 			return this.dao.consultar(valor);
 		} catch (MaisDeUmRegistroException | TableException e) {

@@ -15,7 +15,7 @@ public class Produto implements Persistente {
     private Long id;
 
     @Column(name = "CODIGO", length = 10, nullable = false, unique = true)
-    private String codigo;
+    private Long codigo;
 
     @Column(name = "NOME", length = 30, nullable = false)
     private String nome;
@@ -34,11 +34,11 @@ public class Produto implements Persistente {
         this.id = id;
     }
 
-    public String getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 

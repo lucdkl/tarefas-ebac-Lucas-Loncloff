@@ -46,7 +46,7 @@ public interface IGenericDAO<T extends Persistente, E extends Serializable> {
      * @throws MaisDeUmRegistroException 
      * @throws TableException 
      */
-    public T consultar(Long valor) throws MaisDeUmRegistroException, TableException, DAOException;
+    public T consultar(E valor) throws MaisDeUmRegistroException, TableException, DAOException;
 
     /**
      * Método que irá retornar todos os registros do banco de dados de uma determinado dado ou tabela

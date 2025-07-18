@@ -42,15 +42,17 @@ public abstract class GenericDAO<T extends Persistente, E extends Serializable> 
 
     }
 
+
+
     @Override
-    public T consultar(Long valor) throws MaisDeUmRegistroException, TableException, DAOException {
+    public T consultar(E valor) throws MaisDeUmRegistroException, TableException, DAOException {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            String jpql = "SELECT e FROM " + classPersistente.getSimpleName() + " e WHERE e.id = :valor";
-            TypedQuery<T> query = entityManager.createQuery(jpql, classPersistente);
-            query.setParameter("valor", valor);
-            return query.getSingleResult();
+            entityManager.getTransaction().begin();
+            T entity = entityManager.find(this.classPersistente, valor);
+            entityManager.getTransaction().commit();
+            return entity;
 
         } catch (NoResultException e){
             return null;
@@ -59,6 +61,24 @@ public abstract class GenericDAO<T extends Persistente, E extends Serializable> 
         }
 
     }
+
+//    @Override
+//    public T consultar(Long valor) throws MaisDeUmRegistroException, TableException, DAOException {
+//        EntityManager entityManager = entityManagerFactory.createEntityManager();
+//
+//        try {
+//            String jpql = "SELECT e FROM " + classPersistente.getSimpleName() + " e WHERE e.id = :valor";
+//            TypedQuery<T> query = entityManager.createQuery(jpql, classPersistente);
+//            query.setParameter("valor", valor);
+//            return query.getSingleResult();
+//
+//        } catch (NoResultException e){
+//            return null;
+//        } finally {
+//            entityManager.close();
+//        }
+//
+//    }
 
     @Override
     public Collection buscarTodos() throws DAOException {

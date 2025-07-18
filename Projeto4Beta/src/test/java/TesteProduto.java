@@ -16,13 +16,13 @@ public class TesteProduto {
 
     private IProdutoDAO produtoDAO;
 
-    private String codigo;
+    private Long codigo;
 
     private Long valor;
 
     public TesteProduto(){
         this.produtoDAO = new ProdutoDAO();
-        codigo = String.valueOf(ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L));;
+        codigo = ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L);
         valor = ThreadLocalRandom.current().nextLong(10L, 100L);
     }
 

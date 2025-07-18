@@ -16,13 +16,13 @@ public class TesteCliente {
 
     private IClienteDAO clienteDAO;
 
-    private String codigo;
+    private Long codigo;
 
     private String tel;
 
     public TesteCliente(){
         this.clienteDAO = new ClienteDAO();
-        codigo = String.valueOf(ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L));;
+        codigo = ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L);
         tel = String.valueOf(ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L));;
     }
 

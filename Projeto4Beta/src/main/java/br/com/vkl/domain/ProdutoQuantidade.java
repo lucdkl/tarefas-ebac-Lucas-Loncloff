@@ -15,13 +15,20 @@ public class ProdutoQuantidade implements Persistente {
     @SequenceGenerator(name = "produtoquant_seq", sequenceName = "sq_produtoquant", initialValue = 1, allocationSize = 1)
     private Long id;
 
-//    private Produto produto;
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Produto produto;
 
     @Column(name = "QUANTIDADE", length = 20, nullable = false)
     private Integer quantidade;
 
     @Column(name = "VALORTOTAL", length = 20, nullable = false)
     private BigDecimal valorTotal;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn (name = "id_venda_fk",
+            foreignKey = @ForeignKey(name = "fk_prod_qtd_venda"),
+            referencedColumnName = "id", nullable = false)
+    private Venda venda;
 
     public Long getId() {
         return id;
@@ -46,5 +53,34 @@ public class ProdutoQuantidade implements Persistente {
 
     public void setValorTotal(BigDecimal valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Venda getVenda() {
+        return venda;
+    }
+
+    public void setVenda(Venda venda) {
+        this.venda = venda;
+    }
+
+    public void adicionar(Integer quantidade) {
+        this.quantidade += quantidade;
+        BigDecimal novoValor = this.produto.getValor().multiply(BigDecimal.valueOf(quantidade));
+        BigDecimal novoTotal = this.valorTotal.add(novoValor);
+        this.valorTotal = novoTotal;
+    }
+
+    public void remover(Integer quantidade) {
+        this.quantidade -= quantidade;
+        BigDecimal novoValor = this.produto.getValor().multiply(BigDecimal.valueOf(quantidade));
+        this.valorTotal = this.valorTotal.subtract(novoValor);
     }
 }

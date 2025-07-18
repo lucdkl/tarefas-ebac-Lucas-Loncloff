@@ -5,11 +5,14 @@ import br.com.vkl.dao.Persistente;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
 @Table(name = "TB_VENDA")
 public class Venda implements Persistente {
+
+
 
     public enum Status {
         INICIADA, CONCLUIDA, CANCELADA;
@@ -48,7 +51,7 @@ public class Venda implements Persistente {
     private Instant dataVenda;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "STATUS", length = 10, nullable = false, unique = true)
+    @Column(name = "STATUS_VENDA", length = 10, nullable = false)
     private Status status;
 
     public Long getId() {
@@ -105,5 +108,38 @@ public class Venda implements Persistente {
 
     public void setProdutos(Set<ProdutoQuantidade> produtos) {
         this.produtos = produtos;
+    }
+
+    private void validarStatus() {
+        if (this.status == Status.CONCLUIDA) {
+            throw new UnsupportedOperationException("IMPOSSÍVEL ALTERAR VENDA FINALIZADA");
+        }
+    }
+
+    public void adicionarProduto(Produto produto, Integer quantidade) {
+        validarStatus();
+        Optional<ProdutoQuantidade> op =
+                produtos.stream().filter(filter -> filter.getProduto().getCodigo().equals(produto.getCodigo())).findAny();
+        if (op.isPresent()) {
+            ProdutoQuantidade produtpQtd = op.get();
+            produtpQtd.adicionar(quantidade);
+        } else {
+            // Criar fabrica para criar ProdutoQuantidade
+            ProdutoQuantidade prod = new ProdutoQuantidade();
+            prod.setVenda(this);
+            prod.setProduto(produto);
+            prod.adicionar(quantidade);
+            produtos.add(prod);
+        }
+        recalcularValorTotalVenda();
+    }
+
+    public void recalcularValorTotalVenda() {
+        //validarStatus();
+        BigDecimal valorTotal = BigDecimal.ZERO;
+        for (ProdutoQuantidade prod : this.produtos) {
+            valorTotal = valorTotal.add(prod.getValorTotal());
+        }
+        this.valorTotal = valorTotal;
     }
 }
