@@ -24,8 +24,8 @@ public class Cliente implements Persistente {
     @Column(name = "TEL", length = 20, nullable = true)
     private String tel;
 
-    @Column(name = "END", length = 30, nullable = true)
-    private String end;
+    @Column(name = "ENDERECO", length = 30, nullable = true)
+    private String endereco;
 
     @Column(name = "NUMERO", length = 10, nullable = true)
     private String numero;
@@ -68,12 +68,12 @@ public class Cliente implements Persistente {
         this.tel = tel;
     }
 
-    public String getEnd() {
-        return end;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setEnd(String end) {
-        this.end = end;
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getNumero() {

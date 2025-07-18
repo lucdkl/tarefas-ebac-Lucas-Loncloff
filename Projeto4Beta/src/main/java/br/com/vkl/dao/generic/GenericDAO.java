@@ -43,14 +43,13 @@ public abstract class GenericDAO<T extends Persistente, E extends Serializable> 
     }
 
     @Override
-    public T consultar(Serializable valor) throws MaisDeUmRegistroException, TableException, DAOException {
+    public T consultar(Long valor) throws MaisDeUmRegistroException, TableException, DAOException {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
             String jpql = "SELECT e FROM " + classPersistente.getSimpleName() + " e WHERE e.id = :valor";
             TypedQuery<T> query = entityManager.createQuery(jpql, classPersistente);
             query.setParameter("valor", valor);
-
             return query.getSingleResult();
 
         } catch (NoResultException e){

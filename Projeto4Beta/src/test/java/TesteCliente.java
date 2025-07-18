@@ -5,31 +5,35 @@ import br.com.vkl.exceptions.DAOException;
 import br.com.vkl.exceptions.MaisDeUmRegistroException;
 import br.com.vkl.exceptions.TableException;
 import br.com.vkl.exceptions.TipoChaveNaoEncontradaException;
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.Random;
+import java.util.Collection;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class TesteCliente {
 
     private IClienteDAO clienteDAO;
 
-    private Random rd;
-
     private String codigo;
+
+    private String tel;
 
     public TesteCliente(){
         this.clienteDAO = new ClienteDAO();
-        rd = new Random();
-        codigo = String.valueOf(rd.nextLong());
+        codigo = String.valueOf(ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L));;
+        tel = String.valueOf(ThreadLocalRandom.current().nextLong(1000000000L, 10000000000L));;
     }
 
     private Cliente criarCliente() {
         Cliente cliente = new Cliente();
         cliente.setNome("teste");
         cliente.setCpf(codigo);
+        cliente.setTel(tel);
         cliente.setCidade("SaoPaulo");
         cliente.setEstado("SaoPaulinho");
-        cliente.setEnd("Inferno");
+        cliente.setEndereco("Inferno");
         cliente.setNumero("666");
         return cliente;
     }
@@ -39,23 +43,23 @@ public class TesteCliente {
 
         Cliente cliente = criarCliente();
 
-//        Assert.assertNotNull(clienteDAO.cadastrar(cliente));
-//
-//        cliente.setNome("teste da silva");
-//
-//        Assert.assertNotNull(clienteDAO.alterar(cliente));
-//
-//        Assert.assertEquals(clienteDAO.consultar(String.valueOf(cliente.getId())), cliente);
+        Assert.assertNotNull(clienteDAO.cadastrar(cliente));
 
-//        List<Cliente> listClientes = clientesDao.consultarTodos();
-//
-//        Boolean existe = listClientes.stream().anyMatch(c -> c.getCodigo().equals("A1"));
-//
-//        Assert.assertTrue(existe);
-//
-//        clienteDao.excluir(cliente);
-//
-//        Assert.assertNull(clientesDao.consultar());
+        cliente.setNome("teste da silva");
+
+        Assert.assertNotNull(clienteDAO.alterar(cliente));
+
+        Assert.assertEquals(clienteDAO.consultar(cliente.getId()).getId(), cliente.getId());
+
+        Collection<Cliente> clienteList = clienteDAO.buscarTodos();
+
+        Boolean existe = clienteList.stream().anyMatch(c -> c.getId().equals(cliente.getId()));
+
+        Assert.assertTrue(existe);
+
+        clienteDAO.excluir(cliente);
+
+        Assert.assertNull(clienteDAO.consultar(cliente.getId()));
 
     }
 }

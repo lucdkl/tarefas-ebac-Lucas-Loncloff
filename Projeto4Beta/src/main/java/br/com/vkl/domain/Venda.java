@@ -32,9 +32,14 @@ public class Venda implements Persistente {
     @Column(name = "CODIGO", length = 10, nullable = false, unique = true)
     private String codigo;
 
-//    private Cliente cliente;
+    @ManyToOne
+    @JoinColumn (name = "id_cliente_fk",
+            foreignKey = @ForeignKey(name = "fk_venda_cliente"),
+            referencedColumnName = "id", nullable = false )
+    private Cliente cliente;
 
-//    private Set<ProdutoQuantidade> produtos;
+    @OneToMany (mappedBy = "venda", cascade = CascadeType.ALL)
+    private Set<ProdutoQuantidade> produtos;
 
     @Column(name = "VALORTOTAL", length = 20, nullable = false)
     private BigDecimal valorTotal;
@@ -42,6 +47,7 @@ public class Venda implements Persistente {
     @Column(name = "DATAVENDA", length = 20, nullable = false)
     private Instant dataVenda;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", length = 10, nullable = false, unique = true)
     private Status status;
 
@@ -83,5 +89,21 @@ public class Venda implements Persistente {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public Set<ProdutoQuantidade> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(Set<ProdutoQuantidade> produtos) {
+        this.produtos = produtos;
     }
 }
