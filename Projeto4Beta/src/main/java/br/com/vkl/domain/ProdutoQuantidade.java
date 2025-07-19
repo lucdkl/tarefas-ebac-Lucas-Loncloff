@@ -30,6 +30,11 @@ public class ProdutoQuantidade implements Persistente {
             referencedColumnName = "id", nullable = false)
     private Venda venda;
 
+    public ProdutoQuantidade() {
+        this.quantidade = 0;
+        this.valorTotal = BigDecimal.ZERO;
+    }
+
     public Long getId() {
         return id;
     }

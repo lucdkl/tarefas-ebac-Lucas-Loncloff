@@ -5,14 +5,13 @@ import br.com.vkl.dao.Persistente;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 @Entity
 @Table(name = "TB_VENDA")
 public class Venda implements Persistente {
-
-
 
     public enum Status {
         INICIADA, CONCLUIDA, CANCELADA;
@@ -53,6 +52,10 @@ public class Venda implements Persistente {
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS_VENDA", length = 10, nullable = false)
     private Status status;
+
+    public Venda(){
+        produtos = new HashSet<>();
+    }
 
     public Long getId() {
         return id;
@@ -141,5 +144,37 @@ public class Venda implements Persistente {
             valorTotal = valorTotal.add(prod.getValorTotal());
         }
         this.valorTotal = valorTotal;
+    }
+
+
+    public Integer getQuantidadeTotalProdutos() {
+        // Soma a quantidade getQuantidade() de todos os objetos ProdutoQuantidade
+        int result = produtos.stream()
+                .reduce(0, (partialCountResult, prod) -> partialCountResult + prod.getQuantidade(), Integer::sum);
+        return result;
+    }
+
+    public void removerProduto(Produto produto, Integer quantidade) {
+        validarStatus();
+        Optional<ProdutoQuantidade> op =
+                produtos.stream().filter(filter -> filter.getProduto().getCodigo().equals(produto.getCodigo())).findAny();
+
+        if (op.isPresent()) {
+            ProdutoQuantidade produtpQtd = op.get();
+            if (produtpQtd.getQuantidade()>quantidade) {
+                produtpQtd.remover(quantidade);
+                recalcularValorTotalVenda();
+            } else {
+                produtos.remove(op.get());
+                recalcularValorTotalVenda();
+            }
+
+        }
+    }
+
+    public void removerTodosProdutos() {
+        validarStatus();
+        produtos.clear();
+        valorTotal = BigDecimal.ZERO;
     }
 }

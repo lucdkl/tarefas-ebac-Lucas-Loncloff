@@ -13,13 +13,13 @@ import java.util.List;
 
 public abstract class GenericDAO<T extends Persistente, E extends Serializable> implements IGenericDAO<T,E>{
 
-    private EntityManagerFactory entityManagerFactory;
+    protected EntityManagerFactory entityManagerFactory;
+
+    protected EntityManager entityManager;
 
     private final Class<T> classPersistente;
 
     public GenericDAO(Class<T> classPersistente) {
-        this.entityManagerFactory = Persistence.createEntityManagerFactory
-                ("Projeto4Jpa");
         this.classPersistente = classPersistente;
     }
 
@@ -29,15 +29,14 @@ public abstract class GenericDAO<T extends Persistente, E extends Serializable> 
     @Override
     public T cadastrar(T entity) throws TipoChaveNaoEncontradaException, DAOException {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        openConnection();
 
         try {
-            entityManager.getTransaction().begin();
             entityManager.persist(entity);
             entityManager.getTransaction().commit();
             return entity;
         } finally {
-            entityManager.close();
+            close();
         }
 
     }
@@ -46,10 +45,10 @@ public abstract class GenericDAO<T extends Persistente, E extends Serializable> 
 
     @Override
     public T consultar(E valor) throws MaisDeUmRegistroException, TableException, DAOException {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        openConnection();
 
         try {
-            entityManager.getTransaction().begin();
+
             T entity = entityManager.find(this.classPersistente, valor);
             entityManager.getTransaction().commit();
             return entity;
@@ -57,40 +56,23 @@ public abstract class GenericDAO<T extends Persistente, E extends Serializable> 
         } catch (NoResultException e){
             return null;
         } finally {
-            entityManager.close();
+            close();
         }
 
     }
 
-//    @Override
-//    public T consultar(Long valor) throws MaisDeUmRegistroException, TableException, DAOException {
-//        EntityManager entityManager = entityManagerFactory.createEntityManager();
-//
-//        try {
-//            String jpql = "SELECT e FROM " + classPersistente.getSimpleName() + " e WHERE e.id = :valor";
-//            TypedQuery<T> query = entityManager.createQuery(jpql, classPersistente);
-//            query.setParameter("valor", valor);
-//            return query.getSingleResult();
-//
-//        } catch (NoResultException e){
-//            return null;
-//        } finally {
-//            entityManager.close();
-//        }
-//
-//    }
 
     @Override
     public Collection buscarTodos() throws DAOException {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        openConnection();
 
         try {
             String jpql = "SELECT e FROM " + classPersistente.getSimpleName() + " e";
             TypedQuery<T> query = entityManager.createQuery(jpql, classPersistente);
             return query.getResultList();
         }finally {
-            entityManager.close();
+            close();
         }
 
     }
@@ -98,32 +80,35 @@ public abstract class GenericDAO<T extends Persistente, E extends Serializable> 
     @Override
     public T alterar(T entity) throws TipoChaveNaoEncontradaException, DAOException {
 
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
-
         try {
-            entityManager.getTransaction().begin();
+            openConnection();
             T tAtualizado = entityManager.merge(entity);
             entityManager.getTransaction().commit();
             return tAtualizado;
         }finally {
-            entityManager.close();
+            close();
         }
     }
 
     @Override
     public void excluir(T entity) throws DAOException {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
 
         try {
-            entityManager.getTransaction().begin();
+            openConnection();
             entity = entityManager.merge(entity);
             entityManager.remove(entity);
             entityManager.getTransaction().commit();
         } finally {
-            entityManager.close();
+            close();
         }
     }
 
+    protected void openConnection() {
+        entityManagerFactory =
+                Persistence.createEntityManagerFactory("Projeto4JPA");
+        entityManager = entityManagerFactory.createEntityManager();
+        entityManager.getTransaction().begin();
+    }
 
     public void close() {
         if (entityManagerFactory != null && entityManagerFactory.isOpen()) {
