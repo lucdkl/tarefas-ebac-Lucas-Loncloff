@@ -1,0 +1,16 @@
+br\com\vkl\service\ClienteService.class
+br\com\vkl\domain\Persistente.class
+br\com\vkl\services\generic\IGenericService.class
+br\com\vkl\domain\Cliente.class
+br\com\vkl\exceptions\TipoChaveNaoEncontradaException.class
+br\com\vkl\service\IClienteService.class
+br\com\vkl\dao\generic\GenericDAO.class
+br\com\vkl\exceptions\MaisDeUmRegistroException.class
+br\com\vkl\exceptions\TableException.class
+br\com\vkl\dao\generic\IGenericDAO.class
+br\com\vkl\exceptions\DAOException.class
+br\com\vkl\services\generic\GenericService.class
+br\com\vkl\controller\ClienteController.class
+br\com\vkl\exceptions\TipoElementoNaoConhecidoException.class
+br\com\vkl\dao\IClienteDAO.class
+br\com\vkl\dao\ClienteDAO.class
