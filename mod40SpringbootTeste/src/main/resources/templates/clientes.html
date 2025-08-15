@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CRUD de Clientes</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+        table, th, td { border: 1px solid #ccc; }
+        th, td { padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        form { margin-bottom: 20px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+        input { padding: 5px; width: 100%; }
+        button { padding: 5px 10px; cursor: pointer; }
+        .actions a { margin-right: 5px; }
+    </style>
+</head>
+<body>
+<h1>CRUD de Clientes</h1>
+
+<!-- Formulário para adicionar/editar cliente -->
+<form th:action="@{/clientes/salvar}" method="post" th:object="${cliente}">
+    <input type="text" th:field="*{nome}" placeholder="Nome" required>
+    <input type="number" th:field="*{cpf}" placeholder="CPF" required>
+    <input type="number" th:field="*{tel}" placeholder="Telefone" required>
+    <input type="email" th:field="*{email}" placeholder="Email" required>
+    <input type="text" th:field="*{end}" placeholder="Endereço" required>
+    <input type="number" th:field="*{numero}" placeholder="Número" required>
+    <input type="text" th:field="*{cidade}" placeholder="Cidade" required>
+    <input type="text" th:field="*{estado}" placeholder="Estado" required>
+    <button type="submit">Salvar</button>
+</form>
+
+<!-- Tabela de clientes -->
+<table>
+    <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Telefone</th>
+        <th>Email</th>
+        <th>Endereço</th>
+        <th>Número</th>
+        <th>Cidade</th>
+        <th>Estado</th>
+        <th>Ações</th>
+    </tr>
+    <tr th:each="cli : ${clientes}">
+        <td th:text="${cli.id}"></td>
+        <td th:text="${cli.nome}"></td>
+        <td th:text="${cli.cpf}"></td>
+        <td th:text="${cli.tel}"></td>
+        <td th:text="${cli.email}"></td>
+        <td th:text="${cli.end}"></td>
+        <td th:text="${cli.numero}"></td>
+        <td th:text="${cli.cidade}"></td>
+        <td th:text="${cli.estado}"></td>
+        <td class="actions">
+            <a th:href="@{/clientes/editar/{id}(id=${cli.id})}">Editar</a>
+            <a th:href="@{/clientes/deletar/{id}(id=${cli.id})}">Excluir</a>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
