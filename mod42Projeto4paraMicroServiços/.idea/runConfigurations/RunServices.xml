@@ -3,6 +3,7 @@
     <toRun name="1ConfigServer" type="Application" />
     <toRun name="2ConfigClientes" type="Application" />
     <toRun name="3ConfigProdutos" type="Application" />
+    <toRun name="4ConfigVendas" type="Application" />
     <method v="2" />
   </configuration>
 </component>
