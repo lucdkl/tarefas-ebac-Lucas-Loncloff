@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/ClienteService/ClienteService/ClienteService.iml" filepath="$PROJECT_DIR$/ClienteService/ClienteService/ClienteService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ConfigServer/ConfigServer/ConfigServer.iml" filepath="$PROJECT_DIR$/ConfigServer/ConfigServer/ConfigServer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ProdutoService/ProdutoService/ProdutoService.iml" filepath="$PROJECT_DIR$/ProdutoService/ProdutoService/ProdutoService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/mod42ExercicioMicroServiços.iml" filepath="$PROJECT_DIR$/.idea/mod42ExercicioMicroServiços.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ConfigServer" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="br.com.vkl.micro.online.ConfigServerApplication" />
+    <module name="ConfigServer" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
