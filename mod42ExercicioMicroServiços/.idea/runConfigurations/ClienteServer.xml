@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ClienteServer" type="Application" factoryName="Application">
+    <option name="MAIN_CLASS_NAME" value="br.com.vkl.micro.online.ClienteServerApplication" />
+    <module name="ClienteService" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
